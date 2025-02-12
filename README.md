@@ -42,7 +42,7 @@ lib/
 ## Installation & Setup
 1. **Clone the Repository:**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/utsavhingar22/savings_app.git
    cd flutter_savings_app
    ```
 2. **Install Dependencies:**
