@@ -1,8 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/savings_provider.dart';
 
 class WithdrawalScreen extends ConsumerStatefulWidget {
+  const WithdrawalScreen({super.key});
+
   @override
   _WithdrawalScreenState createState() => _WithdrawalScreenState();
 }
@@ -58,7 +61,7 @@ class _WithdrawalScreenState extends ConsumerState<WithdrawalScreen> {
             ElevatedButton(
               onPressed: () {
                 final amount = double.tryParse(_controller.text) ?? 0;
-                ref.read(savingsProvider.notifier).withdraw(selectedIndex, amount, selectedComponent as String);
+                ref.read(savingsProvider.notifier).withdraw(selectedIndex, amount, selectedComponent);
                 Navigator.pop(context);
               },
               child: const Text('Withdraw'),

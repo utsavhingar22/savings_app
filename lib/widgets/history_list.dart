@@ -4,7 +4,7 @@ import '../models/savings_model.dart';
 class HistoryList extends StatelessWidget {
   final List<SavingsModel> savingsHistory;
 
-  HistoryList({required this.savingsHistory});
+  const HistoryList({super.key, required this.savingsHistory});
 
   @override
   Widget build(BuildContext context) {

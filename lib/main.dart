@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'models/savings_model.dart';
 import 'views/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Lock orientation to portrait mode
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+
   await Hive.initFlutter();
   Hive.registerAdapter(SavingsModelAdapter());
   await Hive.openBox<SavingsModel>('savingsBox');
@@ -22,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Savings App',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }

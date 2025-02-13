@@ -6,6 +6,8 @@ import '../providers/savings_provider.dart';
 import 'history_screen.dart';
 
 class HomeScreen extends ConsumerWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final savingsList = ref.watch(savingsProvider);
@@ -15,16 +17,21 @@ class HomeScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Savings App')),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _animatedBalanceCard('CompA Balance', totalCompA),
-          _animatedBalanceCard('CompB Balance', totalCompB),
-          const SizedBox(height: 20),
-          _buildActionButton(context, 'Add Savings', const SavingsEntryScreen()),
-          _buildActionButton(context, 'Withdraw', WithdrawalScreen()),
-          _buildActionButton(context, 'View History', HistoryScreen()),
-        ],
+      body: SingleChildScrollView( // Fix RenderFlex Overflow
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _animatedBalanceCard('CompA Balance', totalCompA),
+              _animatedBalanceCard('CompB Balance', totalCompB),
+              const SizedBox(height: 20),
+              _buildActionButton(context, 'Add Savings', const SavingsEntryScreen()),
+              _buildActionButton(context, 'Withdraw', WithdrawalScreen()),
+              _buildActionButton(context, 'View History', HistoryScreen()),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -35,14 +42,21 @@ class HomeScreen extends ConsumerWidget {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.blueAccent,
         borderRadius: BorderRadius.circular(15),
         boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 5)],
       ),
       child: ListTile(
-        title: Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-        subtitle: Text('\$${balance.toStringAsFixed(2)}', style: const TextStyle(color: Colors.white, fontSize: 16)),
+        title: Text(
+          title,
+          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          '₹${balance.toStringAsFixed(2)}', // Changed to Rupees
+          style: const TextStyle(color: Colors.white, fontSize: 16),
+        ),
       ),
     );
   }
